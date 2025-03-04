@@ -117,27 +117,6 @@ export const ConstellationSVG = ({
 
   return (
     <svg width={width} height={height}>
-      {/* Glowing stars at key points */}
-      {points.map(([x, y], index) =>
-        starIndices.has(index) ? (
-          <polygon
-            key={index}
-            points="
-              10,0  12,6 
-              18,6  13,10 
-              15,16  10,12 
-              5,16  7,10 
-              2,6   8,6
-            " // Star shape
-            transform={`translate(${x - 10}, ${y - 10})`} // Position the star
-            fill="white"
-            stroke="yellow"
-            strokeWidth="2"
-            filter="drop-shadow(0px 0px 8px white)"
-          />
-        ) : null
-      )}
-
       {/* Constellation lines with mix of dashed and solid */}
       <polyline
         points={points.map((p) => p.join(",")).join(" ")}
@@ -149,6 +128,29 @@ export const ConstellationSVG = ({
         opacity="0.9"
         style={{ filter: "drop-shadow(0px 0px 5px lightblue)" }}
       />
+
+      {/* Glowing stars at key points */}
+      <g>
+        {points.map(([x, y], index) =>
+          starIndices.has(index) ? (
+            <polygon
+              key={index}
+              points="
+          10,0  12,6 
+          18,6  13,10 
+          15,16  10,12 
+          5,16  7,10 
+          2,6   8,6
+        " // Star shape
+              transform={`translate(${x - 10}, ${y - 10})`} // Position the star
+              fill="white"
+              stroke="yellow"
+              strokeWidth="2"
+              filter="drop-shadow(0px 0px 8px white)"
+            />
+          ) : null
+        )}
+      </g>
     </svg>
   );
 };
