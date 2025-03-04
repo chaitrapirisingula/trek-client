@@ -5,7 +5,7 @@ import { encodePolyline } from "./PolylineUtils";
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const navigate = useNavigate();
 
   const handleFileChange = (event) => {
@@ -18,14 +18,14 @@ const Home = () => {
   };
 
   const handleUpload = async () => {
-    if (!selectedFile || !username) {
-      alert("Please select a file and enter a username.");
+    if (!selectedFile || !name) {
+      alert("Please select a file and enter a name.");
       return;
     }
 
     const formData = new FormData();
     formData.append("file", selectedFile);
-    formData.append("username", username);
+    formData.append("name", name);
 
     try {
       const response = await fetch(
@@ -52,7 +52,7 @@ const Home = () => {
         const encodedData = encodeURIComponent(serializedData);
         navigate(`/animate?data=${encodedData}`);
         setSelectedFile(null);
-        setUsername("");
+        setName("");
         setIsModalOpen(false);
       }
     } catch (error) {
@@ -87,12 +87,12 @@ const Home = () => {
           <div className="bg-gray-500 text-white p-6 rounded-lg shadow-lg text-center">
             <h2 className="text-xl font-bold mb-4">Upload GPX File</h2>
             <div className="flex flex-col items-center gap-4">
-              {/* Username Input */}
+              {/* Name Input */}
               <input
                 type="text"
                 placeholder="Name your run"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 bg-gray-100 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
 

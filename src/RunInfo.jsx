@@ -67,7 +67,7 @@ function RunInfo() {
           <motion.div
             initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: 55 }}
-            // exit={{ opacity: 0, y: 20 }}
+            exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 1, ease: "easeOut" }}
             className="flex flex-col gap-2 mt-4"
           >
