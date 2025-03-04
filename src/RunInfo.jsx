@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import StarAnimation from "./StarAnimation";
-import { decodePolyline, encodePolyline } from "./PolylineUtils";
 
 function RunInfo() {
   const location = useLocation();
@@ -20,23 +19,13 @@ function RunInfo() {
       // Decode and parse the JSON string back into an object
       const decodedData = decodeURIComponent(encodedData);
       const parsedData = JSON.parse(decodedData);
-      const decodedCoordinates = decodePolyline(parsedData.coordinates);
-      setData({
-        coordinates: decodedCoordinates,
-        name: parsedData.name,
-        distance: parsedData.distance,
-      });
+      setData(parsedData);
     }
   }, [location]);
 
   // Function to handle sharing the URL with state data
   const handleShare = () => {
-    const encodedCoordinates = encodePolyline(data.coordinates);
-    const serializedData = JSON.stringify({
-      coordinates: encodedCoordinates,
-      name: data.name,
-      distance: data.distance,
-    });
+    const serializedData = JSON.stringify(data);
     const encodedData = encodeURIComponent(serializedData);
     const link = `${window.location.origin}/animate?data=${encodedData}`;
 

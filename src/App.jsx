@@ -10,7 +10,7 @@ function Layout({ children }) {
     <div className="flex flex-col min-h-screen">
       {/* Header */}
       <header className="w-full bg-gray-900 text-white text-center py-4 text-2xl font-bold h-1/10">
-        trek💫
+        <Link to="/">trek💫</Link>
       </header>
 
       {/* Main Content (Allow Growth) */}

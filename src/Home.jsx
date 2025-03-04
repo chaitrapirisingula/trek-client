@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { encodePolyline } from "./PolylineUtils";
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,12 +42,7 @@ const Home = () => {
 
       const data = await response.json();
       if (data) {
-        const encodedCoordinates = encodePolyline(data.coordinates);
-        const serializedData = JSON.stringify({
-          coordinates: encodedCoordinates,
-          name: data.name,
-          distance: data.distance,
-        });
+        const serializedData = JSON.stringify(data);
         const encodedData = encodeURIComponent(serializedData);
         navigate(`/animate?data=${encodedData}`);
         setSelectedFile(null);

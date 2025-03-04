@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ConstellationSVG } from "./PolylineUtils.jsx";
 import { useNavigate } from "react-router-dom";
-import { encodePolyline } from "./PolylineUtils.jsx";
 
 const Galaxy = () => {
   const width = 130;
@@ -219,7 +218,7 @@ const Galaxy = () => {
         {constellations &&
           constellations.map((constellation, index) => (
             <div
-              key={constellation.uuid || index}
+              key={index}
               style={{
                 position: "absolute",
                 left: constellationPositions[index]?.x || 0,
@@ -231,14 +230,7 @@ const Galaxy = () => {
                 height: height,
               }}
               onClick={() => {
-                const encodedCoordinates = encodePolyline(
-                  constellation.coordinates
-                );
-                const serializedData = JSON.stringify({
-                  coordinates: encodedCoordinates,
-                  name: constellation.name,
-                  distance: constellation.distance,
-                });
+                const serializedData = JSON.stringify(constellation);
                 const encodedData = encodeURIComponent(serializedData);
                 navigate(`/animate?data=${encodedData}`);
               }}
