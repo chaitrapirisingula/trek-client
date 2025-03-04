@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ConstellationSVG, PolylineMap, PolylineSVG } from "./PolylineUtils";
 
-export default function StarAnimation({ data }) {
+export default function StarAnimation({ data, setShowInfo }) {
   const coords = data.coordinates;
 
   const [stage, setStage] = useState(0);
@@ -13,6 +13,7 @@ export default function StarAnimation({ data }) {
       setTimeout(() => setStage(1), 3000),
       setTimeout(() => setStage(2), 5000),
       setTimeout(() => setStage(3), 7000),
+      setTimeout(() => setShowInfo(true), 8000),
     ];
 
     return () => timers.forEach(clearTimeout);
@@ -28,7 +29,7 @@ export default function StarAnimation({ data }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 2 }}
-            className="absolute w-full h-full"
+            className="absolute inset-0 flex items-center justify-center w-full h-full my-8"
           >
             <PolylineMap coords={coords} />
           </motion.div>

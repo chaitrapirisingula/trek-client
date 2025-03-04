@@ -13,8 +13,8 @@ const Galaxy = () => {
   const dragSpeedMultiplier = 1;
   const [constellations, setConstellations] = useState(null);
   const [constellationPositions, setConstellationPositions] = useState([]);
-  const galaxyWidth = 2500; // Width of the virtual galaxy space
-  const galaxyHeight = 2500; // Height of the virtual galaxy space
+  const galaxyWidth = 1000; // Width of the virtual galaxy space
+  const galaxyHeight = 1000; // Height of the virtual galaxy space
   const padding = 50; // Minimum distance between constellations
 
   const navigate = useNavigate();
@@ -108,7 +108,9 @@ const Galaxy = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(`Successfully fetched ${data.count} constellations`);
+          console.log(
+            `Successfully fetched ${data.constellations.length} constellations`
+          );
           setConstellations(data.constellations);
 
           // Generate non-overlapping positions
@@ -130,22 +132,28 @@ const Galaxy = () => {
 
   const startDrag = (e) => {
     setDragging(true);
-    lastPosRef.current = { x: e.clientX, y: e.clientY };
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    lastPosRef.current = { x: clientX, y: clientY };
   };
 
   const drag = (e) => {
     if (!dragging) return;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
     const updatePosition = () => {
-      const dx = e.clientX - lastPosRef.current.x;
-      const dy = e.clientY - lastPosRef.current.y;
+      const dx = clientX - lastPosRef.current.x;
+      const dy = clientY - lastPosRef.current.y;
       if (dx !== 0 || dy !== 0) {
         setOffset((prev) => ({
           x: prev.x + dx * dragSpeedMultiplier,
           y: prev.y + dy * dragSpeedMultiplier,
         }));
-        lastPosRef.current = { x: e.clientX, y: e.clientY };
+        lastPosRef.current = { x: clientX, y: clientY };
       }
     };
+
     cancelAnimationFrame(requestRef.current);
     requestRef.current = requestAnimationFrame(updatePosition);
   };
@@ -156,15 +164,21 @@ const Galaxy = () => {
   };
 
   useEffect(() => {
-    const handleMouseMove = (e) => drag(e);
-    const handleMouseUp = () => stopDrag();
+    const handleMove = (e) => drag(e);
+    const handleUp = () => stopDrag();
+
     if (dragging) {
-      window.addEventListener("mousemove", handleMouseMove, { passive: true });
-      window.addEventListener("mouseup", handleMouseUp);
+      window.addEventListener("mousemove", handleMove, { passive: true });
+      window.addEventListener("mouseup", handleUp);
+      window.addEventListener("touchmove", handleMove, { passive: true });
+      window.addEventListener("touchend", handleUp);
     }
+
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseup", handleUp);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("touchend", handleUp);
       cancelAnimationFrame(requestRef.current);
     };
   }, [dragging]);
@@ -183,12 +197,13 @@ const Galaxy = () => {
       className="relative cursor-grab active:cursor-grabbing"
       style={{
         width: "100vw",
-        height: "100vh",
+        height: "80vh",
         overflow: "hidden",
         position: "relative",
         touchAction: "none",
       }}
       onMouseDown={startDrag}
+      onTouchStart={startDrag}
     >
       <div
         style={{

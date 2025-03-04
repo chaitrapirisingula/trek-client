@@ -7,19 +7,19 @@ import About from "./About";
 
 function Layout({ children }) {
   return (
-    <div className="flex flex-col items-center h-screen">
+    <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <header className="w-full bg-gray-900 text-white text-center py-4 text-2xl font-bold">
+      <header className="w-full bg-gray-900 text-white text-center py-4 text-2xl font-bold h-1/10">
         trek💫
       </header>
 
-      {/* Main Content */}
-      <main className="flex flex-col flex-grow justify-center items-center overflow-hidden">
+      {/* Main Content (Allow Growth) */}
+      <main className="flex-grow flex flex-col justify-center items-center h-8/10">
         {children}
       </main>
 
-      {/* Footer */}
-      <footer className="w-full bg-gray-900 text-white text-center py-3 mt-auto">
+      {/* Footer Always at Bottom */}
+      <footer className="w-full bg-gray-900 text-white text-center py-3 mt-auto h-1/10">
         <div className="flex justify-center gap-6">
           <Link to="/" className="hover:underline">
             Home

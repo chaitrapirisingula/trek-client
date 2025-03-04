@@ -68,7 +68,7 @@ const normalizePoints = (points, width, height, epsilon = 0.000215) => {
   });
 };
 
-export const PolylineSVG = ({ coords, width = 300, height = 300 }) => {
+export const PolylineSVG = ({ coords, width = 250, height = 250 }) => {
   const [pointsString, setPointsString] = useState("");
 
   useEffect(() => {
@@ -92,8 +92,8 @@ export const PolylineSVG = ({ coords, width = 300, height = 300 }) => {
 
 export const ConstellationSVG = ({
   coords,
-  width = 300,
-  height = 300,
+  width = 250,
+  height = 250,
   stars,
 }) => {
   const [points, setPoints] = useState([]);

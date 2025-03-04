@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { encodePolyline } from "./PolylineUtils";
 
@@ -67,25 +66,25 @@ const Home = () => {
       <h1 className="text-6xl font-bold">trek💫</h1>
       <p>run to the moon 🚀</p>
 
-      <motion.div className="w-full flex flex-col gap-4">
+      <div className="flex flex-col gap-4">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="w-full py-3 px-4 bg-indigo-900 text-center rounded-lg shadow-md hover:bg-indigo-700 transition"
+          className="py-3 px-4 bg-indigo-900 text-center rounded-lg shadow-md hover:bg-indigo-700 transition"
         >
           Upload Run (GPX)
         </button>
 
         <button
-          className="w-full py-3 px-4 bg-indigo-900 text-center rounded-lg shadow-md hover:bg-indigo-700 transition"
+          className="py-3 px-4 bg-indigo-900 text-center rounded-lg shadow-md hover:bg-indigo-700 transition"
           onClick={() => navigate("/galaxy")}
         >
           Explore the galaxy 🌌
         </button>
-      </motion.div>
+      </div>
 
       {isModalOpen && (
         <div className="fixed inset-0 flex justify-center items-center bg-opacity-50">
-          <div className="bg-gray-500 text-white p-6 rounded-lg shadow-lg w-1/3 text-center">
+          <div className="bg-gray-500 text-white p-6 rounded-lg shadow-lg text-center">
             <h2 className="text-xl font-bold mb-4">Upload GPX File</h2>
             <div className="flex flex-col items-center gap-4">
               {/* Username Input */}
