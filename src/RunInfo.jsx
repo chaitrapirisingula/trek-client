@@ -55,10 +55,10 @@ function RunInfo() {
         {showInfo && (
           <motion.div
             initial={{ opacity: 0, y: 0 }}
-            animate={{ opacity: 1, y: 55 }}
+            animate={{ opacity: 1, y: 85 }}
             exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="flex flex-col gap-2 mt-4"
+            transition={{ duration: 2, ease: "easeOut" }}
+            className="flex flex-col gap-2"
           >
             {/* Run Information */}
             <div className="max-w-xl text-center gap-4">

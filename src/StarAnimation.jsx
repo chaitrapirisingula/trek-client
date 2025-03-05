@@ -13,7 +13,7 @@ export default function StarAnimation({ data, setShowInfo }) {
       setTimeout(() => setStage(1), 3000),
       setTimeout(() => setStage(2), 5000),
       setTimeout(() => setStage(3), 7000),
-      setTimeout(() => setShowInfo(true), 8000),
+      setTimeout(() => setShowInfo(true), 8500),
     ];
 
     return () => timers.forEach(clearTimeout);
